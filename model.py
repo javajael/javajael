@@ -23,8 +23,33 @@ class User(db.Model):
     age = db.Column(db.Integer, nullable=True)
     zipcode = db.Column(db.String(15), nullable=True)
 
+class Item(db.Model):
+    """Items - each item is a Movie with relevant information"""
+    __tablename__ = "items"
 
-# Put your Movie and Rating model classes here.
+    movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    movie_title = db.Column(db.String(64), nullable=False)
+    release_date = db.Column(db.String(8), nullable=False)
+    video_release_date = db.Column(db.String(8), nullable =True)
+    imdb_url =  db.Column(db.String(64), nullable=True)
+    # Should genre be a separate table with movie id as primary key (foreign key)
+    # and each genre category is a column, with values of 0 or 1.  
+    # 0 means it's not in that genre, 1 means it IS in that genre  pg 4/18 in lab
+    # genre = 
+
+
+class Data(db.Model):
+    """ Table containing a rating a particular user has given to a specific 
+    movie
+    """
+    __tablename__ = "data"
+
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    score = db.Column(db.Integer, nullable=False)
+    # is Timestamp necessary to the  objective - is it okay if it's null? 
+    # i.e. nullable could be False
+    time_stamp = db.Column(db.DateTime, nullable=True) 
 
 
 ##############################################################################
