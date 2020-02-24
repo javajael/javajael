@@ -23,6 +23,13 @@ class User(db.Model):
     age = db.Column(db.Integer, nullable=True)
     zipcode = db.Column(db.String(15), nullable=True)
 
+    def __repr__(self):
+        return f"""<User user_id={self.user_id}
+                   email={self.email}
+                   password={self.password}
+                   age={self.age}
+                   zipcode={self.zipcode}>"""
+
 
 class Movie(db.Model):
     """Items - each item is a Movie with relevant information"""
@@ -33,6 +40,12 @@ class Movie(db.Model):
     release_date = db.Column(db.DateTime, nullable=False)
     imdb_url = db.Column(db.String(200), nullable=False)
 
+    def __repr__(self):
+        return f"""<Movie movie_id={self.movie_id}
+                    movie_title={self.movie_title}
+                    release_date={self.releas_date}
+                    imdb_url={self.imdb_url}>"""
+
 
 class Rating(db.Model):
     """ Table containing a rating a particular user has given to a specific
@@ -41,9 +54,25 @@ class Rating(db.Model):
     __tablename__ = "ratings"
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False)
-    movie_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey("users.user_id"))
+    movie_id = db.Column(db.Integer,
+                         db.ForeignKey('movies.movie_id'))
     score = db.Column(db.Integer, nullable=False)
+
+    # Define relationship to user
+    user = db.relationship("User",
+                           backref=db.backref("ratings",
+                                              order_by=rating_id))
+    movie = db.relationship("Movie",
+                            backref=db.backref("ratings",
+                                               order_by=rating_id))
+
+    def __repr__(self):
+        return f"""<Rating rating_id={self.rating_id}
+                   movie_id={self.movie_id}
+                   user_id={self.user_id}
+                   score={self.score}>"""
 #     # is Timestamp necessary to the  objective - is it okay if it's null?
 #     # i.e. nullable could be False
 #     time_stamp = db.Column(db.DateTime, nullable=True)
