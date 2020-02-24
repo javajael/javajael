@@ -30,8 +30,8 @@ class Movie(db.Model):
 
     movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     movie_title = db.Column(db.String(64), nullable=False)
-    released_at = db.Column(db.DateTime, nullable=False)
-    # video_release_date = db.Column(db.DateTime, nullable=False)
+    release_date = db.Column(db.DateTime, nullable=False)
+    video_release_date = db.Column(db.DateTime, nullable=False)
     imdb_url = db.Column(db.String(64), nullable=False)
     # Should genre be a separate table with movie id as primary key (foreign key)
     # and each genre category is a column, with values of 0 or 1.  

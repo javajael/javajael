@@ -3,7 +3,7 @@
 from sqlalchemy import func
 from model import User
 # from model import Rating
-# from model import Movie
+from model import Movie
 
 from model import connect_to_db, db
 from server import app
@@ -36,6 +36,47 @@ def load_users():
 
 def load_movies():
     """Load movies from u.item into database."""
+    print("Movies")
+
+    for row in open("seed_data/u.item"):
+        row = row.rstrip()
+        # release date is in brackets in the movie title - will have to split
+        # out after
+
+        # List slicing would be a better way to assign these variables
+        (movie_id, movie_title, release_date, video_release_date, imdb_url,
+            unknown, action, adventure, animation, children, comedy, crime,
+            documentary, drama, fantasy, film_noir, horror, musical, mystery,
+            romance, sci_fi, thriller, war, western) = row.split("|")
+
+        movie = Movie(movie_id=movie_id,
+                      movie_title=movie_title,
+                      release_date=release_date,
+                      video_release_date=video_release_date,
+                      # unknown=unknown,
+                      # action=action,
+                      # adventure=adventure,
+                      # animation=animation,
+                      # children=children,
+                      # comedy=comedy,
+                      # crime=crime,
+                      # documentary=documentary,
+                      # drama=drama,
+                      # fantasy=fantasy,
+                      # film_noir=film_noir,
+                      # horror=horror,
+                      # musical=musical,
+                      # mystery=mystery,
+                      # romance=romance,
+                      # sci_fi=sci_fi,
+                      # thriller=thriller,
+                      # war=war,
+                      # western=western
+                      )
+        # We need to add to the session or it won't ever be stored
+        db.session.add(movie)
+    # Once we're done, we should commit our work
+    db.session.commit()
 
 
 def load_ratings():
