@@ -25,12 +25,24 @@ def index():
     return render_template("homepage.html")
 
 
-@app.route("/users")
+@app.route('/users')
 def user_list():
     """Show list of all users"""
     users = User.query.all()
     return render_template("user_list.html", users=users)
 
+
+@app.route('/registration')
+def registration():
+    """ Register a new user """
+    return render_template("registration.html")
+
+@app.route('/create_user')
+def create_user():
+    """ checks database to see if a user exists and if not creates the
+    entry in the database. """
+    email = request.args.get('email')
+    password = request.args.get('password')
 
 
 if __name__ == "__main__":
