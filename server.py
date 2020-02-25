@@ -37,12 +37,23 @@ def registration():
     """ Register a new user """
     return render_template("registration.html")
 
+
 @app.route('/create_user')
 def create_user():
     """ checks database to see if a user exists and if not creates the
     entry in the database. """
     email = request.args.get('email')
     password = request.args.get('password')
+
+    # check db to see if the email exists in the db
+    user = User.query.filter_by(email=email).all()
+    if user is not None:
+        return render_template("login.html")
+    else:
+        # take the email and password and add it to the entry in the db.
+        user = User(email=email, password=password)
+        # insert a row into the table for this user
+        # if the user was created successfully flash message
 
 
 if __name__ == "__main__":
