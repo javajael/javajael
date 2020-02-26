@@ -2,12 +2,40 @@
 {% block content %}
 
 <h1>Register</h1>
-<form action="/create_user" method="GET">
-    <label for="email">Email: </label>
-    <input type="email" id="email">
-    <label for="password">Password: </label>
-    <input type="password" id="password">
-    <input type="submit">
+
+<form action="register" method="POST">
+
+  <div>
+    <label>
+      Email
+      <input type="email" name="email">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Password
+      <input type="password" name="password">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Age
+      <input type="number" name="age">
+    </label>
+  </div>
+
+  <div>
+    <label>
+      Zipcode
+      <input type="text" name="zipcode">
+    </label>
+  </div>
+
+  <div>
+    <input type="submit" value="Register">
+  </div>
 
 </form>
 
